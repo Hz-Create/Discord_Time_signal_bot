@@ -38,6 +38,10 @@ async def on_message(message):
     global count
     is_intask = False
     global setting_task
+    global check_ad
+    check_ad = False
+    global is_seted_up
+    is_seted_up = False
     
     def get_h_m_s(td):
         m, s = divmod(td.seconds, 60)
@@ -76,7 +80,9 @@ async def on_message(message):
                     a += 1
                 await message.channel.send("設定が完了しました。このコマンドを再度実行すると設定した時間は削除されます。")
                 print(set_time)
-            
+                break
+
+
         else :
             await message.channel.send("権限がありません。")
 
@@ -86,10 +92,12 @@ async def on_message(message):
         for p in admin_roles:
             print("fp")
             if p in [users_role.id for users_role in message.author.roles]:
+                check_ad = True
                 await message.channel.send("時報システムを起動します。終了するには[>stop time signal]を入力してください。")
                 # タスク開始
                 say_task = asyncio.current_task()
                 is_intask = True
+                check_ad = False
                 # 現在時刻取得
                 sb_now  = datetime.datetime.fromtimestamp(time.time())
                 sb_now_h = int(sb_now.strftime('%H'))
@@ -103,6 +111,7 @@ async def on_message(message):
 
                 print("farst",s_now)
                 paa = 0
+                is_farst = False
                 count = 0
                 # 時間設定確認
                 if len(set_time) != 0:
@@ -278,6 +287,18 @@ async def on_message(message):
                                 
                                 print("end roop")
                             else:
+                                if is_farst == False:
+                                    # 表示用の時間を秒から復元
+                                    td = datetime.timedelta(seconds=set_time[0])
+                                    set_time_show_list = get_h_m_s(td)
+                                    print(set_time_show_list)
+                                    # 表示分岐
+                                    if len(str(set_time_show_list[1])) == 1:
+                                        await message.channel.send("次の時報> "+str(set_time_show_list[0])+":0"+str(set_time_show_list[1]))
+                                    else:
+                                        await message.channel.send("次の時報> "+str(set_time_show_list[0])+":"+str(set_time_show_list[1]))
+                                    is_farst = True
+
                                 print("pass")
                                 paa += 1
                                 paaw = 0
@@ -291,6 +312,7 @@ async def on_message(message):
 
                 else:
                     await message.channel.send("時間が設定されていません")
+            
         else :
             await message.channel.send("権限がありません。")
 
