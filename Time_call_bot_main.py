@@ -11,7 +11,8 @@ from discord.utils import snowflake_time
 client = discord.Client()
 say_task = None
 setting_task = None
-admin_roles = [869026664150073354]
+# 管理者ロールを追加する場合はここに[~, ROLEID]
+admin_roles = ["ROLES",]
 set_time = []
 
 CHANNEL_ID ='CHANNEL_ID' 
