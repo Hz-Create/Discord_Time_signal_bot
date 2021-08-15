@@ -76,6 +76,9 @@ async def on_message(message):
                     a += 1
                 await message.channel.send("設定が完了しました。このコマンドを再度実行すると設定した時間は削除されます。")
                 print(set_time)
+            
+        else :
+            await message.channel.send("権限がありません。")
 
     # 時報機能 
     if message.content.startswith('>start time signal') and is_intask == False:
@@ -288,6 +291,8 @@ async def on_message(message):
 
                 else:
                     await message.channel.send("時間が設定されていません")
+        else :
+            await message.channel.send("権限がありません。")
 
     if message.content.startswith('>stop time signal'):
         try: 
