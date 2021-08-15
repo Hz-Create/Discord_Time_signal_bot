@@ -12,6 +12,7 @@ client = discord.Client()
 say_task = None
 setting_task = None
 # 管理者ロールを追加する場合はここに[~, ROLEID]
+# ここからサーバーによる
 admin_roles = ["ROLES",]
 set_time = []
 
@@ -25,7 +26,7 @@ async def on_ready():
     await start_bot()
 
     ch_name = "CH_NAME"
-
+# ここまで
     for channel in client.get_all_channels():
         if channel.name == ch_name:
             await channel.send('こんにちは！ ヘルプを参照するには[>help]と入力してください。\nHi! If you need help, type[>help].')
