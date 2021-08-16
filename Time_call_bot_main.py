@@ -121,6 +121,7 @@ async def on_message(message):
                     # ループ開始
                     while True:
                         for set_time_r in set_time:
+                            print("settime"+str(set_time_r))
                             # forによる配列の取り出し
                             # および秒数化
                             sb_now  = datetime.datetime.fromtimestamp(time.time())
@@ -135,17 +136,29 @@ async def on_message(message):
 
                             print("second",s_now)
                             # 現在時刻との比較
-                            if set_time_r > s_now:
+                            if set_time_r > s_now or set_time_r < 901:
                                 print(set_time_r > s_now)
                                 
                                 print(len(set_time))
+                                # if set_time[0] < 300:
+                                # # 86399
+                                # s_now_24 = 86400 + int(set_time[0])
+                                # wait_time_24 = s_now_24 - s_now
+                                # print("24time_wait"+str(wait_time_24))
+                                # 設定時間が901秒（つまり0時15分）以下の場合時間を逆算する。Memo.最初からこうすればよかったｗ
+                                if set_time_r < 901:
+                                    s_wait_24 = 86400 + int(set_time_r)
+                                    wait_time = s_wait_24 - s_now
+                                    
+                                else:
+                                    wait_time = set_time_r - s_now
+                                # 待ち時間の計算
+                                wait_time_center = wait_time // 2
                                 # 表示用の時間を秒から復元
                                 td = datetime.timedelta(seconds=set_time_r)
                                 set_time_show_list = get_h_m_s(td)
                                 print(set_time_show_list)
-                                # 待ち時間の計算
-                                wait_time = set_time_r - s_now
-                                wait_time_center = wait_time // 2
+
                                 print("full_time"+str(wait_time))
                                 print("check point"+ str(wait_time_center))
                                 # 表示分岐
@@ -287,6 +300,7 @@ async def on_message(message):
                                 print(count, "pass")
                                 
                                 print("end roop")
+
                         else:
                             print(set_time_r > s_now)
                             if is_farst == False:
@@ -300,11 +314,12 @@ async def on_message(message):
                                 else:
                                     await message.channel.send("次の時報> "+str(set_time_show_list[0])+":"+str(set_time_show_list[1]))
                                 is_farst = True
-
+                            
                             print("pass")
                             paa += 1
                             paaw = 0
                             if paa >= 10:
+
                                 while paaw != 900:
                                     await asyncio.sleep(1)
                                     paaw += 1
