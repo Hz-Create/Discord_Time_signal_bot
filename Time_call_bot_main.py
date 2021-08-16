@@ -287,29 +287,30 @@ async def on_message(message):
                                 print(count, "pass")
                                 
                                 print("end roop")
-                            else:
-                                if is_farst == False:
-                                    # 表示用の時間を秒から復元
-                                    td = datetime.timedelta(seconds=set_time[0])
-                                    set_time_show_list = get_h_m_s(td)
-                                    print(set_time_show_list)
-                                    # 表示分岐
-                                    if len(str(set_time_show_list[1])) == 1:
-                                        await message.channel.send("次の時報> "+str(set_time_show_list[0])+":0"+str(set_time_show_list[1]))
-                                    else:
-                                        await message.channel.send("次の時報> "+str(set_time_show_list[0])+":"+str(set_time_show_list[1]))
-                                    is_farst = True
+                        else:
+                            print(set_time_r > s_now)
+                            if is_farst == False:
+                                # 表示用の時間を秒から復元
+                                td = datetime.timedelta(seconds=set_time[0])
+                                set_time_show_list = get_h_m_s(td)
+                                print(set_time_show_list)
+                                # 表示分岐
+                                if len(str(set_time_show_list[1])) == 1:
+                                    await message.channel.send("次の時報> "+str(set_time_show_list[0])+":0"+str(set_time_show_list[1]))
+                                else:
+                                    await message.channel.send("次の時報> "+str(set_time_show_list[0])+":"+str(set_time_show_list[1]))
+                                is_farst = True
 
-                                print("pass")
-                                paa += 1
-                                paaw = 0
-                                if paa >= 10:
-                                    while paaw != 900:
-                                        await asyncio.sleep(1)
-                                        paaw += 1
-                                        print(paaw)
-                                    paa = 0
-                                continue
+                            print("pass")
+                            paa += 1
+                            paaw = 0
+                            if paa >= 10:
+                                while paaw != 900:
+                                    await asyncio.sleep(1)
+                                    paaw += 1
+                                    print(paaw)
+                                paa = 0
+                            continue
 
                 else:
                     await message.channel.send("時間が設定されていません")
