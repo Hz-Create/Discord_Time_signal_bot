@@ -153,6 +153,7 @@ async def on_message(message):
                                 # print("24time_wait"+str(wait_time_24))
                                 # 設定時間が901秒（つまり0時15分）以下の場合時間を逆算する。Memo.最初からこうすればよかったｗ
                                 if set_time_r < 901:
+                                    print(set_time_r < 901)
                                     s_wait_24 = 86400 + int(set_time_r)
                                     wait_time = s_wait_24 - s_now
                                     
@@ -192,7 +193,14 @@ async def on_message(message):
 
                                 print(s_now)
                                 # 二回目の待機
-                                wait_time = set_time_r - s_now
+                                if set_time_r < 901:
+                                    print(set_time_r < 901)
+                                    s_wait_24 = 86400 + int(set_time_r)
+                                    wait_time = s_wait_24 - s_now
+                                    
+                                else:
+                                    second_time_loop = True
+                                    wait_time = set_time_r - s_now
                                 wait_time_right = wait_time // 2
                                 print("full_time"+str(wait_time))
                                 print("check point"+ str(wait_time_right))
@@ -216,7 +224,14 @@ async def on_message(message):
 
                                     print(s_now)
                                     # 三回目の待機
-                                    wait_time = set_time_r - s_now
+                                    if set_time_r < 901:
+                                        print(set_time_r < 901)
+                                        s_wait_24 = 86400 + int(set_time_r)
+                                        wait_time = s_wait_24 - s_now
+                                    
+                                    else:
+                                        second_time_loop = True
+                                        wait_time = set_time_r - s_now
                                     wait_time_right = wait_time // 2
                                     print("full_time"+str(wait_time))
                                     print("check point"+ str(wait_time_right))
@@ -240,7 +255,14 @@ async def on_message(message):
 
                                     print(s_now)
                                     # 四回目の待機
-                                    wait_time = set_time_r - s_now
+                                    if set_time_r < 901:
+                                        print(set_time_r < 901)
+                                        s_wait_24 = 86400 + int(set_time_r)
+                                        wait_time = s_wait_24 - s_now
+                                        
+                                    else:
+                                        second_time_loop = True
+                                        wait_time = set_time_r - s_now
                                     wait_time_right = wait_time // 2
                                     print("full_time"+str(wait_time))
                                     print("check point"+ str(wait_time_right))
@@ -266,7 +288,14 @@ async def on_message(message):
 
                                     print(s_now)
                                     # 三回目の待機
-                                    wait_time = set_time_r - s_now
+                                    if set_time_r < 901:
+                                        print(set_time_r < 901)
+                                        s_wait_24 = 86400 + int(set_time_r)
+                                        wait_time = s_wait_24 - s_now
+                                        
+                                    else:
+                                        second_time_loop = True
+                                        wait_time = set_time_r - s_now
                                     wait_time_right = wait_time // 2
                                     print("full_time"+str(wait_time))
                                     print("check point"+ str(wait_time_right))
@@ -292,7 +321,14 @@ async def on_message(message):
 
                                 print(s_now)
                                 # 五回目の待機
-                                wait_time = set_time_r - s_now
+                                if set_time_r < 901:
+                                        print(set_time_r < 901)
+                                        s_wait_24 = 86400 + int(set_time_r)
+                                        wait_time = s_wait_24 - s_now
+                                        
+                                else:
+                                    second_time_loop = True
+                                    wait_time = set_time_r - s_now
                                 print("break point"+ str(wait_time))
                                 count = 0
                                 while count != wait_time:
