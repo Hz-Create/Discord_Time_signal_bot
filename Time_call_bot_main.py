@@ -43,6 +43,8 @@ async def on_message(message):
     check_ad = False
     global is_seted_up
     is_seted_up = False
+    global second_time_loop
+    second_time_loop = False
     
     def get_h_m_s(td):
         m, s = divmod(td.seconds, 60)
@@ -100,8 +102,10 @@ async def on_message(message):
                 is_intask = True
                 check_ad = False
                 # 現在時刻取得
-                sb_now  = datetime.datetime.fromtimestamp(time.time())
-                sb_now_h = int(sb_now.strftime('%H'))
+                # sb_now  = datetime.datetime.fromtimestamp(time.time())
+                DIFF_JST_FROM_UTC = 9
+                sb_now = datetime.datetime.utcnow() + datetime.timedelta(hours=DIFF_JST_FROM_UTC)
+                sb_now_h = int(sb_now.hour)
                 print(sb_now_h)
                 sb_now_m = int(sb_now.strftime('%M'))
                 print(sb_now_m)
@@ -124,7 +128,8 @@ async def on_message(message):
                             print("settime"+str(set_time_r))
                             # forによる配列の取り出し
                             # および秒数化
-                            sb_now  = datetime.datetime.fromtimestamp(time.time())
+                            DIFF_JST_FROM_UTC = 9
+                            sb_now = datetime.datetime.utcnow() + datetime.timedelta(hours=DIFF_JST_FROM_UTC)
                             sb_now_h = int(sb_now.strftime('%H'))
                             print(sb_now_h)
                             sb_now_m = int(sb_now.strftime('%M'))
@@ -136,7 +141,8 @@ async def on_message(message):
 
                             print("second",s_now)
                             # 現在時刻との比較
-                            if set_time_r > s_now or set_time_r < 901:
+                            if set_time_r > s_now or set_time_r < 901 and second_time_loop == True:
+                                second_time_loop = False
                                 print(set_time_r > s_now)
                                 
                                 print(len(set_time))
@@ -151,6 +157,7 @@ async def on_message(message):
                                     wait_time = s_wait_24 - s_now
                                     
                                 else:
+                                    second_time_loop = True
                                     wait_time = set_time_r - s_now
                                 # 待ち時間の計算
                                 wait_time_center = wait_time // 2
@@ -172,7 +179,8 @@ async def on_message(message):
                                     count += 1
                                     print(count)
                                 # 二回目の処理
-                                sb_now  = datetime.datetime.fromtimestamp(time.time())
+                                DIFF_JST_FROM_UTC = 9
+                                sb_now = datetime.datetime.utcnow() + datetime.timedelta(hours=DIFF_JST_FROM_UTC)
                                 sb_now_h = int(sb_now.strftime('%H'))
                                 print(sb_now_h)
                                 sb_now_m = int(sb_now.strftime('%M'))
@@ -196,8 +204,8 @@ async def on_message(message):
                                 # 長さでの分岐 5000以上
                                 if wait_time_right >= 5000 :
                                     # 三回目の処理
-                                    sb_now  = datetime.datetime.fromtimestamp(time.time())
-                                    sb_now_h = int(sb_now.strftime('%H'))
+                                    DIFF_JST_FROM_UTC = 9
+                                    sb_now = datetime.datetime.utcnow() + datetime.timedelta(hours=DIFF_JST_FROM_UTC)
                                     print(sb_now_h)
                                     sb_now_m = int(sb_now.strftime('%M'))
                                     print(sb_now_m)
@@ -219,7 +227,8 @@ async def on_message(message):
                                         print(count)
                                     
                                     # 四回目の処理
-                                    sb_now  = datetime.datetime.fromtimestamp(time.time())
+                                    DIFF_JST_FROM_UTC = 9
+                                    sb_now = datetime.datetime.utcnow() + datetime.timedelta(hours=DIFF_JST_FROM_UTC) 
                                     sb_now_h = int(sb_now.strftime('%H'))
                                     print(sb_now_h)
                                     sb_now_m = int(sb_now.strftime('%M'))
@@ -244,7 +253,8 @@ async def on_message(message):
                                 elif wait_time_right >= 1500 :
                                     print("1step pass")
                                     # 三回目の処理
-                                    sb_now  = datetime.datetime.fromtimestamp(time.time())
+                                    DIFF_JST_FROM_UTC = 9
+                                    sb_now = datetime.datetime.utcnow() + datetime.timedelta(hours=DIFF_JST_FROM_UTC)
                                     sb_now_h = int(sb_now.strftime('%H'))
                                     print(sb_now_h)
                                     sb_now_m = int(sb_now.strftime('%M'))
@@ -269,7 +279,8 @@ async def on_message(message):
                                 if wait_time_right <= 1499 :
                                     print("2step pass")
                                 # 五回目の処理
-                                sb_now  = datetime.datetime.fromtimestamp(time.time())
+                                DIFF_JST_FROM_UTC = 9
+                                sb_now = datetime.datetime.utcnow() + datetime.timedelta(hours=DIFF_JST_FROM_UTC)
                                 sb_now_h = int(sb_now.strftime('%H'))
                                 print(sb_now_h)
                                 sb_now_m = int(sb_now.strftime('%M'))
@@ -303,6 +314,7 @@ async def on_message(message):
 
                         else:
                             print(set_time_r > s_now)
+                            second_time_loop = True
                             if is_farst == False:
                                 # 表示用の時間を秒から復元
                                 td = datetime.timedelta(seconds=set_time[0])
