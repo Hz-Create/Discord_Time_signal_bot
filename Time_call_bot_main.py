@@ -321,10 +321,13 @@ async def on_message(message):
                                 set_time_show_list = get_h_m_s(td)
                                 print(set_time_show_list)
                                 # 表示分岐
-                                if len(str(set_time_show_list[1])) == 1:
-                                    await message.channel.send("次の時報> "+str(set_time_show_list[0])+":0"+str(set_time_show_list[1]))
+                                if set_time_r >= 901: 
+                                    pass
                                 else:
-                                    await message.channel.send("次の時報> "+str(set_time_show_list[0])+":"+str(set_time_show_list[1]))
+                                    if len(str(set_time_show_list[1])) == 1:
+                                        await message.channel.send("次の時報> "+str(set_time_show_list[0])+":0"+str(set_time_show_list[1]))
+                                    else:
+                                        await message.channel.send("次の時報> "+str(set_time_show_list[0])+":"+str(set_time_show_list[1]))
                                 is_farst = True
                             
                             print("pass")
