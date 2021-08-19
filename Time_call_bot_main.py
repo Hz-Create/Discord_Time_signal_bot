@@ -57,11 +57,13 @@ async def on_message(message):
         return
 # 時報時刻設定
     if message.content.startswith('>set time') and is_intask == False:
+        print(is_intask)
         def check(msg):
             return msg.author == message.author
             # ユーザー確認
         for p in admin_roles:
             if p in [users_role.id for users_role in message.author.roles]:
+                
                 set_time = []
                 # 各種設定
                 await message.channel.send("時報の時間設定をします。")
@@ -88,9 +90,9 @@ async def on_message(message):
 
         else :
             await message.channel.send("権限がありません。")
-
     # 時報機能 
     if message.content.startswith('>start time signal') and is_intask == False:
+        print(is_intask)
         print("a")
         for p in admin_roles:
             print("fp")
@@ -360,7 +362,7 @@ async def on_message(message):
                                 if set_time_r >= 901: 
                                     pass
                                 else:
-                                    if len(str(set_time_show_list[1])) == 1:
+                                    if len(str(set_time_r)) == 1:
                                         await message.channel.send("次の時報> "+str(set_time_show_list[0])+":0"+str(set_time_show_list[1]))
                                     else:
                                         await message.channel.send("次の時報> "+str(set_time_show_list[0])+":"+str(set_time_show_list[1]))
